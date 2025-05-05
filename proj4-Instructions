@@ -95,7 +95,8 @@ Check "Poll SCM ?" : */2 * * * *
 Build:pom.xml
 Goal and options: clean install package
 
- 
+Checkmark Webhook
+(Go to github settings > add webhook > payload url http://jenkinsip:8080/github-webhook  > let me select individual events > select pull requests > save
 
 post build action : Send build artifacts over SSH 
 Name : Select SSH IP 172.31.44.123
@@ -105,24 +106,23 @@ Remote directory : //opt/docker
 
 
 Add SSH server
-Name : Select SSH IP 172.31.44.123
+Name : Select SSH server
 Source files :  leave blank
 Remote directory :  leave blank
 Exec command"
 
-docker stop hello-world_demo
-docker ps -aq | xargs -r docker rm -fv
-docker images -q | xargs -r docker rmi -f
+echo -e "FROM tomcat:9.0\nCOPY java-hello-world.war /usr/local/tomcat/webapps/" > /opt/docker/Dockerfile
+
+cd /opt/docker && sudo docker stop hello-world_demo && docker rm -fv hello-world_demo && sudo docker rmi hello-world_demo --force
 
 Add SSH server
-Name : Select SSH IP 172.31.44.123
+Name : Select SSH  
 Source files :  leave blank
 Remote directory :  leave blank
 Exec command"
-cd /opt/docker
+cd /opt/docker/
 docker build -t hello-world_demo .
 docker run -d --name hello-world_demo -p 8090:8080 hello-world_demo
-
 
 
 apply >  save
