@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>Welecome to sreenath project</h2>
+<h2>Welecome to sreenath's project lab</h2>
 </body>
 </html>
